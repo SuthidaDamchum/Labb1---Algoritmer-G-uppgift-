@@ -1,4 +1,5 @@
-﻿
+Console.WriteLine("*** Min labb1 ***");
+Console.WriteLine();
 
 Console.Write("Mata in en text: ");
 string inmatning = Console.ReadLine();
@@ -6,42 +7,42 @@ string inmatning = Console.ReadLine();
 long summa = 0;
 for (int i = 0; i < inmatning.Length; i++)
 {
-    if (!int.TryParse(inmatning[i].ToString(), out int number))
-    {
+    char inputChar = inmatning[i];
+    
+    if (!char.IsDigit(inputChar))
         continue;
-    }
+
     for (int j = i + 1; j < inmatning.Length; j++)
     {
-        if (!int.TryParse(inmatning[j].ToString(), out int number2))
-        {
+        char nästaChar = inmatning[j];
+
+        if (!char.IsDigit(nästaChar))
             break;
-        }
-        if (inmatning[i] == inmatning[j])
+
+        if (inputChar == nästaChar)
         {
-            string start = "";
-
-            if (i != 0)
-                start = inmatning.Substring(0, i);
-
             string found = inmatning.Substring(i, j - i + 1);
 
             summa = summa + Convert.ToInt64(found);
-            string end = "";
 
-            if (j + 1 < inmatning.Length)
-                end = inmatning.Substring(j + 1);
-
-            Console.Write(start);
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.Write(found);
-            Console.ResetColor();
-            Console.Write(end);
+            for (int k = 0; k < inmatning.Length; k++)
+            {
+                if (k >= i && k <= j)
+                {
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.Write(inmatning[k]);
+                    Console.ForegroundColor = ConsoleColor.Magenta;
+                }
+                else
+                {
+                    Console.Write(inmatning[k]);
+                }
+            }
             Console.WriteLine();
-
             break;
         }
     }
 }
-Console.Write("Total" + " = " + summa);
+Console.ForegroundColor = ConsoleColor.DarkBlue;
+Console.WriteLine($"Total = {summa}");
 Console.ResetColor();
-
